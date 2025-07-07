@@ -143,23 +143,24 @@
 
     <button class="save-button" onclick="confirmSettings()">Save Settings</button>
   </div>
+<script>
+  function toggleTheme() {
+    const isDark = document.getElementById('darkToggle').checked;
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
 
-  <script>
-    function toggleTheme() {
-      document.documentElement.setAttribute('data-theme',
-        document.getElementById('darkToggle').checked ? 'dark' : 'light'
-      );
-    }
+  function confirmSettings() {
+    alert("Display settings saved successfully!");
+  }
 
-    function confirmSettings() {
-      alert("Display settings saved successfully!");
-    }
+  window.onload = () => {
+    const savedTheme = localStorage.getItem('theme');
+    const isDark = savedTheme === 'dark';
+    document.getElementById('darkToggle').checked = isDark;
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  };
+</script>
 
-    window.onload = () => {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      document.getElementById('darkToggle').checked = prefersDark;
-      toggleTheme();
-    };
-  </script>
 </body>
 </html>
