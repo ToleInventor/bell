@@ -1,123 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Smart Bell System | Add New Event</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
-  <style>
-    :root {
-      --bg-color: #f0f4f8;
-      --text-color: #333;
-      --card-color: #ffffff;
-      --accent-color: #3a7bd5;
-    }
-
-    [data-theme="dark"] {
-      --bg-color: #121212;
-      --text-color: #f0f0f0;
-      --card-color: #1e1e1e;
-      --accent-color: #90caf9;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0 20px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .header {
-      background-color: var(--accent-color);
-      color: white;
-      padding: 20px;
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
-      border-radius: 12px;
-      margin: 30px 0;
-    }
-
-    .container {
-      background-color: var(--card-color);
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 700px;
-      margin: auto;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: background-color 0.3s ease;
-    }
-
-    label {
-      font-weight: 600;
-      margin-top: 20px;
-      display: block;
-    }
-
-    select, input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    button {
-      background-color: var(--accent-color);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      font-size: 16px;
-      margin: 10px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #2f5fa3;
-    }
-
-    .note {
-      font-size: 14px;
-      color: var(--text-color);
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .section {
-      display: none;
-    }
-  </style>
 </head>
 <body>
-  <div class="header">
+  <header class="header">
     <div id="current-time"></div>
-    SMART BELL SYSTEM | ADD NEW EVENT
-  </div>
+    ADD NEW EVENT
+    <a href="manage-alarms.html">Manage Events</a>
+  </header>
 
-  <div class="container">
+  <main class="container">
     <label for="type_of_event">Event Type</label>
     <select id="type_of_event" onchange="toggleEventType()">
-      <option value="NORMAL">NORMAL EVENT</option>
-      <option value="SPECIAL">SPECIAL EVENT</option>
+      <option value="NORMAL">Normal Event</option>
+      <option value="SPECIAL">Special Event</option>
     </select>
 
-    <div id="normalSection" class="section">
-      <label>Event Title</label>
-      <input id="tile" type="text" />
+    <section id="normalSection" class="section">
+      <label for="tile">Event Title</label>
+      <input id="tile" type="text" required />
 
-      <label>Time</label>
-      <input id="time" type="time" />
+      <label for="time">Time</label>
+      <input id="time" type="time" required />
 
-      <label>Delay</label>
-      <input id="delay" type="number" placeholder="Delay time in seconds" />
+      <label for="delay">Delay (sec)</label>
+      <input id="delay" type="number" min="0" placeholder="Seconds" />
 
-      <label>Days</label>
+      <label for="days">Days</label>
       <select id="days">
         <option>Weekdays</option>
         <option>Weekends</option>
@@ -125,64 +40,59 @@
         <option>All days</option>
       </select>
 
-      <label>Tone</label>
+      <label for="tone">Tone</label>
       <select id="tone">
         <option>Better days</option>
         <option>Hello world</option>
       </select>
-    </div>
+    </section>
 
-    <div id="specialSection" class="section">
-      <label>Date</label>
-      <input id="specialDate" type="date" />
+    <section id="specialSection" class="section">
+      <label for="specialDate">Date</label>
+      <input id="specialDate" type="date" required />
 
-      <label>Time</label>
-      <input id="specialTime" type="time" />
+      <label for="specialTime">Time</label>
+      <input id="specialTime" type="time" required />
 
-      <label>Description</label>
-      <input id="specialDescription" type="text" placeholder="Event description and location" />
+      <label for="specialDescription">Description</label>
+      <input id="specialDescription" type="text" placeholder="Location & details" />
 
-      <label>Tone</label>
+      <label for="specialTone">Tone</label>
       <select id="specialTone">
         <option>Blessing</option>
         <option>Good morning Africa</option>
       </select>
+    </section>
+
+    <div class="actions">
+      <button onclick="leaveSite()">Cancel</button>
+      <button onclick="saveEvent()">Save Event</button>
     </div>
 
-    <div style="text-align: center;">
-      <button onclick="leaveSite()">MANAGE EVENTS</button>
-      <button onclick="saveEvent()">COMPLETE EVENT CREATION</button>
-    </div>
-    <div class="note">
-      * Once a special event bell rings, it is permanently deleted.
-    </div>
-  </div>
+    <p class="note">
+      * Special events ring once and then remove themselves automatically.
+    </p>
+  </main>
 
   <script src="./scripts/updateTime.js"></script>
   <script src="./scripts/main.js"></script>
   <script>
     function toggleEventType() {
-      const type = document.getElementById("type_of_event").value;
-      document.getElementById("normalSection").style.display = type === "NORMAL" ? "block" : "none";
-      document.getElementById("specialSection").style.display = type === "SPECIAL" ? "block" : "none";
+      const t = document.getElementById('type_of_event').value;
+      document.getElementById('normalSection').style.display = (t === 'NORMAL') ? 'block' : 'none';
+      document.getElementById('specialSection').style.display = (t === 'SPECIAL') ? 'block' : 'none';
     }
 
     window.onload = () => {
       toggleEventType();
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
+      const theme = localStorage.getItem('theme');
+      if (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
       }
-
-      const clock = document.getElementById("current-time");
-      const updateClock = () => {
-        const now = new Date();
-        clock.innerText = now.toLocaleTimeString();
-      };
-      setInterval(updateClock, 1000);
-      updateClock();
+      const clk = document.getElementById('current-time');
+      const update = () => clk.textContent = new Date().toLocaleTimeString();
+      update(); setInterval(update, 1000);
     };
   </script>
 </body>
-    </html>
-    
+</html>
