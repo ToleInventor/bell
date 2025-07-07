@@ -2,18 +2,131 @@
 <html lang="en" data-theme="">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Smart Bell System | Add New Event</title>
-  <link rel="stylesheet" href="./css/style.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+  <style>
+    :root {
+      --bg-color: #f0f4f8;
+      --text-color: #333;
+      --card-color: white;
+      --accent-color: #3a7bd5;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #f0f0f0;
+      --card-color: #1e1e1e;
+      --accent-color: #90caf9;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 0 20px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .header {
+      background-color: var(--accent-color);
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 30px 0 20px;
+      position: relative;
+    }
+
+    .header a {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      background-color: rgba(255,255,255,0.2);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    #current-time {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .container {
+      background-color: var(--card-color);
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .actions {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--accent-color);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2f5fa3;
+    }
+
+    .note {
+      font-size: 14px;
+      color: gray;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <header class="header">
+  <div class="header">
     <div id="current-time"></div>
     ADD NEW EVENT
     <a href="manage-alarms.html">Manage Events</a>
-  </header>
+  </div>
 
   <main class="container">
     <label for="type_of_event">Event Type</label>
@@ -95,5 +208,5 @@
     };
   </script>
 </body>
-</html>
+  </html>
   
