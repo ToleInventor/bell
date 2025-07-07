@@ -1,42 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Smart Bell System | Manage Alarms</title>
-    <link rel="stylesheet" href="./css./style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js">
-    </script>
-    <style src="./css/style.css">
-    </style>
+  <meta charset="UTF-8" />
+  <title>Smart Bell System | Manage Alarms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      color: #333;
+      padding: 0 20px;
+    }
+    .header {
+      background-color: #3a7bd5;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 30px 0 20px;
+      position: relative;
+    }
+    .header a {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      background-color: #2c5fa3;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    #digital-clock {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .current-alarms {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+    }
+    .current-alarms h2 {
+      border-bottom: 2px solid #3a7bd5;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #3a7bd5;
+    }
+    #normal-events-list, #special-events-list {
+      min-height: 60px;
+      margin-bottom: 40px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .bottom {
+      background-color: #3a7bd5;
+      color: white;
+      border: none;
+      padding: 20px 30px;
+      border-radius: 50%;
+      font-size: 28px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .bottom:hover {
+      background-color: #2c5fa3;
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div id="digital-clock"></div>
-        </script>
-        MANAGE BELL EVENTS
-        <a href="settings.html">settings</a>
-    </div>
+  <div class="header">
+    <div id="digital-clock"></div>
+    MANAGE BELL EVENTS
+    <a href="settings.html">Settings</a>
+  </div>
 
-    <div class="current-alarms">
-        <h2>Normal Events</h2>
-        <div id="normal-events-list"></div>
-        
-        <h2>Special Events</h2>
-        <div id="special-events-list"></div>
-    </div>
+  <div class="current-alarms">
+    <h2><i class="fa-regular fa-bell"></i> Normal Events</h2>
+    <div id="normal-events-list"></div>
 
-    <footer>
-        <center>
-            <a href="ADD NEW EVENT.html">
-                <button id="weka-alarm" class="bottom">
-                    <b><h1>+</h1></b>
-                </button>
-            </a>
-        </center>
-    </footer>
-    <script src="./scripts/index.js">
-    </script>
+    <h2><i class="fa-solid fa-star"></i> Special Events</h2>
+    <div id="special-events-list"></div>
+  </div>
+
+  <footer>
+    <a href="ADD NEW EVENT.html">
+      <button id="weka-alarm" class="bottom">+</button>
+    </a>
+  </footer>
+
+  <script src="./scripts/index.js"></script>
 </body>
 </html>
